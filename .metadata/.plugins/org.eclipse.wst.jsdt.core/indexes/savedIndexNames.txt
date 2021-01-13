@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+D:\Project\Pareeksha\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-1673764439.index
-2033813879.index
-1749398555.index
-502985621.index
-2414210071.index
-1825224236.index
