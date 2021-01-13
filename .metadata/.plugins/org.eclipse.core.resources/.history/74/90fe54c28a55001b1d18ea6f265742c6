@@ -1,0 +1,30 @@
+package com.app.pojos;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "questions_choices")
+public class QuestionsChoices {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "choice_id")
+	private Long choiceId;
+	@Column(length = 255)
+	private String choice;
+	@ManyToOne
+	@JoinColumn(name="question_id")
+	private Questions question;
+	private boolean isCorrect;
+	
+	public QuestionsChoices() {
+		System.out.println("In Constructor of "+getClass().getName());
+	}
+}
