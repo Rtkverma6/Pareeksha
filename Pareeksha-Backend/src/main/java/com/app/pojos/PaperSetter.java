@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "paper_setter")
@@ -23,9 +24,8 @@ public class PaperSetter {
 	private String name;
 	@Column(length = 30,unique = true)
 	private String email;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = ISO.DATE	)
 	private LocalDate dob;
-	@Column(length = 15)
 	private String password;
 	
 	public PaperSetter() {
@@ -86,6 +86,6 @@ public class PaperSetter {
 		return "PaperSetter [paperSetterId=" + paperSetterId + ", name=" + name + ", email=" + email + ", dob=" + dob
 				+ ", password=" + password + "]";
 	}
-	
+
 	
 }

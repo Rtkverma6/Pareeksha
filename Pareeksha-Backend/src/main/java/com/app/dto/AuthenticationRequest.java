@@ -4,7 +4,7 @@ public class AuthenticationRequest {
 	private String userName, password;
 
 	public AuthenticationRequest() {
-		// TODO Auto-generated constructor stub
+		System.out.println("In Constructor of "+getClass().getName());
 	}
 
 	public AuthenticationRequest(String userName, String password) {
@@ -14,6 +14,7 @@ public class AuthenticationRequest {
 	}
 
 	public String getUserName() {
+		System.out.println("In get Username "+userName);
 		return userName;
 	}
 
@@ -22,6 +23,7 @@ public class AuthenticationRequest {
 	}
 
 	public String getPassword() {
+		System.out.println("In get password "+password);
 		return password;
 	}
 

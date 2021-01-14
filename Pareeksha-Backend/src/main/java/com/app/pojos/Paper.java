@@ -34,6 +34,7 @@ public class Paper {
 	@JoinColumn(name = "paper_setter_id")
 	@JsonIgnore
 	private PaperSetter paperSetter;
+	@Column(columnDefinition = " boolean default false")
 	private boolean reviewed;
 	@Column(length = 10)
 	private String paperPassword;

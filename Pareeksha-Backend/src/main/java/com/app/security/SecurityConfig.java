@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.app.filter.JwtRequestFilter;
@@ -30,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// disable CSRF , no auth required for /authenticate & for any other request ,
 		// its required.
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/papersetter/login","/papersetter/signup").permitAll().
 				/*
 				 * allow OPTIONS call here for angular. These OPTIONS call are made by Angular
 				 * application to Spring Boot application.
@@ -45,5 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 
 		return super.authenticationManagerBean();
+	}
+	
+	@Bean
+	public PasswordEncoder encoder() {
+	 return new BCryptPasswordEncoder();
 	}
 }

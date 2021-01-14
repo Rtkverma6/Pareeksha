@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,6 +23,10 @@ public class Questions {
 	private Long questionId;
 	@Column(columnDefinition = "TEXT")
 	private String question;
+	@Lob
+	private byte[] image;
+	@Column(length = 30)
+	private String imageContentType;
 	private int points;
 	@ManyToOne
 	@JoinColumn(name="paper_id")
