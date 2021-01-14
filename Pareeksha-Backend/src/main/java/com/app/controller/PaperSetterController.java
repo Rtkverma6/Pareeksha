@@ -20,7 +20,7 @@ import com.app.dto.AuthenticationRequest;
 import com.app.dto.AuthenticationResponse;
 import com.app.dto.PaperSetterDto;
 import com.app.pojos.PaperSetter;
-import com.app.service.IPaperSetter;
+import com.app.service.IPaperSetterService;
 import com.app.util.JwtUtil;
 
 @RestController
@@ -29,7 +29,7 @@ import com.app.util.JwtUtil;
 public class PaperSetterController {
 
 	@Autowired
-	IPaperSetter service;
+	IPaperSetterService service;
 	@Autowired
 	private AuthenticationManager mgr;
 	@Autowired

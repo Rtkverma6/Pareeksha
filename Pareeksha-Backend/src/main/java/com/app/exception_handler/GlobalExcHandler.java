@@ -1,6 +1,7 @@
 package com.app.exception_handler;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,13 @@ public class GlobalExcHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(resp, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<?> handleNoSuchElementException(EmptyResultDataAccessException e,WebRequest request){
+		System.out.println("In Handling No Such Element Exception");
+		ErrorResponse resp = new ErrorResponse(e.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(resp, HttpStatus.NO_CONTENT);
+	}
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

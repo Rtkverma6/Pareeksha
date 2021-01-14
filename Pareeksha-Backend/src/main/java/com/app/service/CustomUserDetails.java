@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.app.pojos.PaperSetter;
 
 @SuppressWarnings("serial")
-public class CustomeUserDetails  implements UserDetails{
+public class CustomUserDetails  implements UserDetails{
 	PaperSetter paperSetter;
 	
-	public CustomeUserDetails(PaperSetter paperSetter) {
+	public CustomUserDetails(PaperSetter paperSetter) {
 		super();
 		System.out.println("In Custructor of "+getClass().getName());
 		System.out.println(paperSetter);

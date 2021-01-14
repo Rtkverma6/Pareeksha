@@ -26,6 +26,7 @@ public class QuestionsChoices {
 	@JoinColumn(name="question_id")
 	@JsonIgnore
 	private Questions question;
+	@Column(columnDefinition = "boolean default false")
 	private boolean isCorrect;
 	
 	public QuestionsChoices() {

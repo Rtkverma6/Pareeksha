@@ -26,7 +26,7 @@ public class Paper {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="paper_id")
 	private Long paperId;
-	@Column(name = "paper_name",length = 20)
+	@Column(name = "paper_name",length = 30)
 	private String paperName;
 	@Column(name = "paper_subject",length = 25)
 	private String paperSubject;

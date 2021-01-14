@@ -26,7 +26,7 @@ public class DaoBasedUserDetailsService implements UserDetailsService {
 
 		if (foundPaperSetter == null)
 			throw new UsernameNotFoundException("User by name " + email + " not found!");
-		return new CustomeUserDetails(foundPaperSetter);
+		return new CustomUserDetails(foundPaperSetter);
 	}
 
 }
