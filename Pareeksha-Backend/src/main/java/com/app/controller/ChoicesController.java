@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.ChoicesDTO;
 import com.app.dto.ResponseDTO;
 import com.app.pojos.Questions;
@@ -38,20 +39,16 @@ public class ChoicesController {
 		Optional<Questions> fetchedQuestion = questionService.fetchQuestion(choiceDto.getQuestionId());
 		if (fetchedQuestion.isPresent()) {
 			detachedQuestion=fetchedQuestion.get();
-			
-			transientChoice.setQuestion(detachedQuestion);
 			transientChoice.setChoice(choiceDto.getChoice());
 			transientChoice.setCorrect(choiceDto.getIsCorrect());
+			transientChoice.setQuestion(detachedQuestion);
 			QuestionsChoices insertedChoice = choiceService.insertChoice(transientChoice);
 			if (insertedChoice != null) {
 				return new ResponseEntity<>(insertedChoice, HttpStatus.CREATED);
-			}else {
-				return new ResponseEntity<>("Failed to insert new Choice in Question", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			
-		}else {
-			return new ResponseEntity<>("Failed To find question with given Id", HttpStatus.NO_CONTENT);
+			throw new RuntimeException("Error accords while saving paper");
 		}
-		
+		else 
+			throw new NoSuchElementException("No Such data found for given Question Id");
 	}
 }

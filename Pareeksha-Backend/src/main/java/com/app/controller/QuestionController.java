@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.QuestionRequestDTO;
 import com.app.pojos.Paper;
 import com.app.pojos.Questions;
@@ -28,6 +30,8 @@ public class QuestionController {
 	IPaperService paperService;
 	@Autowired
 	IQuestionsService questionService;
+	@Autowired
+	ModelMapper modelMapper;
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createQuestion(@RequestBody @Valid QuestionRequestDTO questionDto,Questions transientQuestion){
@@ -37,17 +41,15 @@ public class QuestionController {
 		
 		if (fetchedPaper.isPresent()) {
 			detachedPaper=fetchedPaper.get();
+			modelMapper.map(questionDto, transientQuestion.getClass());
 			transientQuestion.setPaper(detachedPaper);
-			transientQuestion.setPoints(questionDto.getPoints());
-			transientQuestion.setQuestion(questionDto.getQuestion());
 			Questions createdQuestion = questionService.createQuestion(transientQuestion);
 			if (createdQuestion != null) {
 				return new ResponseEntity<>(createdQuestion, HttpStatus.CREATED);
-			}else {
-				return new ResponseEntity<>("Failed to create question", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+			throw new RuntimeException("Error accords while creating question");
 		}else {
-			return new ResponseEntity<>("No such Paper found in database", HttpStatus.NO_CONTENT);
+			throw new NoSuchElementException("No Such data found for given Paper Id");
 		}
 	}
 }

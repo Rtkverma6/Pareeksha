@@ -18,6 +18,7 @@ import com.app.filter.JwtRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private UserDetailsService service;
 	@Autowired

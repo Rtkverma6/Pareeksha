@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.codec.AbstractDataBufferDecoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +34,11 @@ public class PaperSetterServiceImpl implements IPaperSetterService {
 	public Optional<PaperSetter> findById(Long id) {
 		Optional<PaperSetter> paperSetter = repo.findById(id);
 		return paperSetter;
+	}
+
+	@Override
+	public PaperSetter getByEmail(String email) {
+		return repo.findByEmail(email);
 	}
 
 

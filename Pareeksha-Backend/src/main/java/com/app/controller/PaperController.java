@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.cust_excs.IllegalArgumentException;
+import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.PaperRequestDTO;
 import com.app.pojos.Paper;
 import com.app.pojos.PaperSetter;
@@ -28,6 +31,8 @@ public class PaperController {
 	IPaperService paperService;
 	@Autowired
 	IPaperSetterService paperSetterService;
+	@Autowired
+	ModelMapper modelMapper;
 
 	@PostMapping("/create")
 	public ResponseEntity<?> generatePaper(@RequestBody @Valid PaperRequestDTO paper, Paper transientPaper) {
@@ -39,27 +44,24 @@ public class PaperController {
 		Optional<PaperSetter> detachedPaperSetter = paperSetterService.findById(paper.getPaperSetterId());
 		if (detachedPaperSetter.isPresent()) {
 			 paperSetter=detachedPaperSetter.get();
+			transientPaper = modelMapper.map(paper, transientPaper.getClass());
 			 transientPaper.setPaperSetter(paperSetter);
-				transientPaper.setPaperName(paper.getPaperName());
-				transientPaper.setPaperSubject(paper.getPaperSubject());
-				transientPaper.setPaperPassword(paper.getPaperPassword());
-				transientPaper.setStartDate(paper.getStartDate());
-				transientPaper.setEndDate(paper.getEndDate());
-				transientPaper.setDuration(paper.getDuration());
+			 System.out.println(transientPaper);
+			 System.out.println(transientPaper.getPaperSetter());
 
 				try {
 					Paper createPaper = paperService.createPaper(transientPaper);
-					return new ResponseEntity<>(createPaper, HttpStatus.CREATED);
+					if (createPaper != null) {
+						return new ResponseEntity<>(createPaper, HttpStatus.CREATED);
+					}else {
+						throw new IllegalArgumentException("Failed to create Paper");
+					}
 				} catch (RuntimeException e) {
 					System.out.println("Error in creating paper" + e);
-					return new ResponseEntity<>("Failed to create new Paper", HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+					throw new RuntimeException("Error accords while saving paper");
+			}
 		}else {
-			//throw new ResponseEntity<>("No content found ", HttpStatus.NO_CONTENT);
-			return new ResponseEntity<>("No Such data found", HttpStatus.NO_CONTENT);
+			throw new NoSuchElementException("No Such data found for given PaperSetter Id");
 		}
-		
-		
-
 	}
 }

@@ -1,7 +1,9 @@
 package com.app.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +13,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.cust_excs.DataIntegrityViolationException;
+import com.app.cust_excs.IllegalArgumentException;
 import com.app.dto.AuthenticationRequest;
 import com.app.dto.AuthenticationResponse;
 import com.app.dto.PaperSetterDto;
@@ -36,29 +41,32 @@ public class PaperSetterController {
 	private UserDetailsService UserDetailsService;
 	@Autowired
 	private JwtUtil utils;
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	public PaperSetterController() {
-		System.out.println("In Constructor of "+getClass().getName());
+		System.out.println("In Constructor of " + getClass().getName());
 	}
-	
+
 	@PostMapping("/signup")
-	public ResponseEntity<?> signUpPaperSetter(@RequestBody @Valid PaperSetterDto dto,PaperSetter transientObj){
+	public ResponseEntity<?> signUpPaperSetter(@RequestBody @Valid PaperSetterDto dto, PaperSetter transientObj) {
 		System.out.println("In signUpPaperSetter()");
 		System.out.println(dto);
-		transientObj.setName(dto.getName()); 
-		transientObj.setEmail(dto.getEmail());
-		transientObj.setDob(dto.getDob());
-		transientObj.setPassword(dto.getPassword());
+		transientObj = modelMapper.map(dto, transientObj.getClass());
 		System.out.println(transientObj);
 		try {
 			PaperSetter savedPaperSetter = service.savePaperSetter(transientObj);
-			return new ResponseEntity<>(savedPaperSetter, HttpStatus.CREATED);
+			if (savedPaperSetter != null) {
+				return new ResponseEntity<>(savedPaperSetter, HttpStatus.CREATED);
+			} else {
+				throw new IllegalArgumentException("Failed to Signup...");
+			}
 		} catch (RuntimeException e) {
 			System.out.println("err in save " + e);
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);// empty body content , sending only err code
+			throw new DataIntegrityViolationException("Email already exists in database Please try another mailId");
 		}
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> createJwtToken(@RequestBody AuthenticationRequest req) {
 		try {
@@ -69,7 +77,21 @@ public class PaperSetterController {
 		}
 		// authentication successful : return JWT token to the client
 		UserDetails details = UserDetailsService.loadUserByUsername(req.getUserName());
-		return ResponseEntity.ok(new AuthenticationResponse(utils.generateToken(details)));
+		System.out.println("In Login return phase");
+		System.out.println(details);
+		return new ResponseEntity<>(new AuthenticationResponse(utils.generateToken(details)), HttpStatus.OK);
+		// return ResponseEntity.ok(new
+		// AuthenticationResponse(utils.generateToken(details)),new PaperSetter());
 
 	}
+
+	@GetMapping
+	public Long getTestsListByUserId(HttpServletRequest req) {
+		String authHeader = req.getHeader("Authorization");
+		String jwt = authHeader.substring(7);
+		UserDetails user = UserDetailsService.loadUserByUsername(utils.extractUsername(jwt));
+		PaperSetter paperSetter = service.getByEmail(user.getUsername());
+		return paperSetter.getPaperSetterId();
+	}
+
 }

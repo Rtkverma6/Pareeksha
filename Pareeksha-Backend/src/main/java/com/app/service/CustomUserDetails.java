@@ -22,6 +22,10 @@ public class CustomUserDetails  implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
 	}
+	
+	public Long getId() {
+		return paperSetter.getPaperSetterId();
+	}
 
 	@Override
 	public String getPassword() {
@@ -57,5 +61,12 @@ public class CustomUserDetails  implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomUserDetails [paperSetter=" + paperSetter + "]";
+	}
+	
+	
 
 }
