@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.QuestionRequestDTO;
+import com.app.mapper.QuestionMapper;
 import com.app.pojos.Paper;
 import com.app.pojos.Questions;
 import com.app.service.IPaperService;
@@ -30,8 +30,6 @@ public class QuestionController {
 	IPaperService paperService;
 	@Autowired
 	IQuestionsService questionService;
-	@Autowired
-	ModelMapper modelMapper;
 	
 	@PostMapping("/create")
 	public ResponseEntity<?> createQuestion(@RequestBody @Valid QuestionRequestDTO questionDto,Questions transientQuestion){
@@ -41,7 +39,7 @@ public class QuestionController {
 		
 		if (fetchedPaper.isPresent()) {
 			detachedPaper=fetchedPaper.get();
-			modelMapper.map(questionDto, transientQuestion.getClass());
+			transientQuestion=QuestionMapper.mapQuestionDtoToQuestionEntity(questionDto, transientQuestion);
 			transientQuestion.setPaper(detachedPaper);
 			Questions createdQuestion = questionService.createQuestion(transientQuestion);
 			if (createdQuestion != null) {

@@ -3,7 +3,6 @@ package com.app.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import com.app.cust_excs.IllegalArgumentException;
 import com.app.dto.AuthenticationRequest;
 import com.app.dto.AuthenticationResponse;
 import com.app.dto.PaperSetterDto;
+import com.app.mapper.PaperSetterMapper;
 import com.app.pojos.PaperSetter;
 import com.app.service.IPaperSetterService;
 import com.app.util.JwtUtil;
@@ -41,8 +41,6 @@ public class PaperSetterController {
 	private UserDetailsService UserDetailsService;
 	@Autowired
 	private JwtUtil utils;
-	@Autowired
-	private ModelMapper modelMapper;
 
 	public PaperSetterController() {
 		System.out.println("In Constructor of " + getClass().getName());
@@ -52,7 +50,7 @@ public class PaperSetterController {
 	public ResponseEntity<?> signUpPaperSetter(@RequestBody @Valid PaperSetterDto dto, PaperSetter transientObj) {
 		System.out.println("In signUpPaperSetter()");
 		System.out.println(dto);
-		transientObj = modelMapper.map(dto, transientObj.getClass());
+		transientObj = PaperSetterMapper.mapPaperSetterDtoToPapersetterEntity(dto, transientObj);
 		System.out.println(transientObj);
 		try {
 			PaperSetter savedPaperSetter = service.savePaperSetter(transientObj);
@@ -86,12 +84,17 @@ public class PaperSetterController {
 	}
 
 	@GetMapping
-	public Long getTestsListByUserId(HttpServletRequest req) {
+	public ResponseEntity<?> getPaperSetterId(HttpServletRequest req) {
+		System.out.println("-----------------------------------------------------");
+		System.out.println("In getPaperSetterId....");
+		System.out.println("-----------------------------------------------------");
 		String authHeader = req.getHeader("Authorization");
 		String jwt = authHeader.substring(7);
 		UserDetails user = UserDetailsService.loadUserByUsername(utils.extractUsername(jwt));
 		PaperSetter paperSetter = service.getByEmail(user.getUsername());
-		return paperSetter.getPaperSetterId();
+		System.out.println("I Returning PapperSetterId  = "+paperSetter.getPaperSetterId());
+//		return  new ResponseEntity<>;
+		return new ResponseEntity<>(paperSetter.getPaperSetterId(), HttpStatus.OK);
 	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.ChoicesDTO;
 import com.app.dto.ResponseDTO;
+import com.app.mapper.ChoicesMapper;
 import com.app.pojos.Questions;
 import com.app.pojos.QuestionsChoices;
 import com.app.service.IChoicesService;
@@ -39,8 +40,7 @@ public class ChoicesController {
 		Optional<Questions> fetchedQuestion = questionService.fetchQuestion(choiceDto.getQuestionId());
 		if (fetchedQuestion.isPresent()) {
 			detachedQuestion=fetchedQuestion.get();
-			transientChoice.setChoice(choiceDto.getChoice());
-			transientChoice.setCorrect(choiceDto.getIsCorrect());
+			transientChoice = ChoicesMapper.mapQuestionDtoToQuestionEntity(choiceDto, transientChoice);
 			transientChoice.setQuestion(detachedQuestion);
 			QuestionsChoices insertedChoice = choiceService.insertChoice(transientChoice);
 			if (insertedChoice != null) {

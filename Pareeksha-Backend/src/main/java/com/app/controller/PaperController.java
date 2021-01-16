@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.cust_excs.IllegalArgumentException;
 import com.app.cust_excs.NoSuchElementException;
 import com.app.dto.PaperRequestDTO;
+import com.app.mapper.PaperMapper;
 import com.app.pojos.Paper;
 import com.app.pojos.PaperSetter;
 import com.app.service.IPaperService;
@@ -31,8 +31,6 @@ public class PaperController {
 	IPaperService paperService;
 	@Autowired
 	IPaperSetterService paperSetterService;
-	@Autowired
-	ModelMapper modelMapper;
 
 	@PostMapping("/create")
 	public ResponseEntity<?> generatePaper(@RequestBody @Valid PaperRequestDTO paper, Paper transientPaper) {
@@ -44,7 +42,7 @@ public class PaperController {
 		Optional<PaperSetter> detachedPaperSetter = paperSetterService.findById(paper.getPaperSetterId());
 		if (detachedPaperSetter.isPresent()) {
 			 paperSetter=detachedPaperSetter.get();
-			transientPaper = modelMapper.map(paper, transientPaper.getClass());
+			transientPaper = PaperMapper.mapPaperDtoToPaperEntity(paper, transientPaper);
 			 transientPaper.setPaperSetter(paperSetter);
 			 System.out.println(transientPaper);
 			 System.out.println(transientPaper.getPaperSetter());
