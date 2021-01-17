@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.PaperRepo;
-import com.app.pojos.Paper;
+import com.app.dao.entity.Paper;
 
 @Service
 @Transactional
@@ -26,6 +26,12 @@ public class PaperServiceImpl implements IPaperService {
 	@Override
 	public Optional<Paper> findById(Long id) {
 		return repo.findById(id);
+	}
+
+	@Override
+	public Paper findByPaperIdAndPaperPassword(Long id, String password) {
+		Paper validatedPaper = repo.findByPaperIdAndPaperPassword(id, password);
+		return validatedPaper;
 	}
 
 }

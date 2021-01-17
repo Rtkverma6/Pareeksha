@@ -1,6 +1,6 @@
 package com.app.service;
 
-import com.app.pojos.QuestionsChoices;
+import com.app.dao.entity.QuestionsChoices;
 
 public interface IChoicesService {
 

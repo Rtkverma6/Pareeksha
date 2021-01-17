@@ -1,11 +1,11 @@
 package com.app.mapper;
 
-import com.app.dto.ChoicesDTO;
-import com.app.pojos.QuestionsChoices;
+import com.app.dao.entity.QuestionsChoices;
+import com.app.dto.Choicesdto;
 
 public class ChoicesMapper {
 
-	public static QuestionsChoices mapQuestionDtoToQuestionEntity(ChoicesDTO dto,QuestionsChoices entity) {
+	public static QuestionsChoices mapQuestionDtoToQuestionEntity(Choicesdto dto,QuestionsChoices entity) {
 		entity.setChoice(dto.getChoice());
 		entity.setCorrect(dto.getIsCorrect());
 		System.out.println("In Mapper method of Choice");

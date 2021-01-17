@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.app.pojos.PaperSetter;
+import com.app.dao.entity.PaperSetter;
 
 @SuppressWarnings("serial")
 public class CustomUserDetails  implements UserDetails{

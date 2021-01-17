@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ChoicesRepo;
-import com.app.pojos.QuestionsChoices;
+import com.app.dao.entity.QuestionsChoices;
 
 @Service
 @Transactional

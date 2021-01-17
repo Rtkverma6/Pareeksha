@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.app.controller.TestController;
+import com.app.restcontroller.TestController;
 
 @SpringBootTest
 class PareekshaBackendApplicationTests {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.PaperSetterRepo;
-import com.app.pojos.PaperSetter;
+import com.app.dao.entity.PaperSetter;
 
 @Service
 @Transactional
