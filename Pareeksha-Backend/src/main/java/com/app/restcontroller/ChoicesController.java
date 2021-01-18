@@ -40,7 +40,7 @@ public class ChoicesController {
 		Optional<Questions> fetchedQuestion = questionService.fetchQuestion(choiceDto.getQuestionId());
 		if (fetchedQuestion.isPresent()) {
 			detachedQuestion=fetchedQuestion.get();
-			transientChoice = ChoicesMapper.mapQuestionDtoToQuestionEntity(choiceDto, transientChoice);
+			transientChoice = ChoicesMapper.mapChoiceDtoToQuestionsChoicesEntity(choiceDto, transientChoice);
 			transientChoice.setQuestion(detachedQuestion);
 			QuestionsChoices insertedChoice = choiceService.insertChoice(transientChoice);
 			if (insertedChoice != null) {

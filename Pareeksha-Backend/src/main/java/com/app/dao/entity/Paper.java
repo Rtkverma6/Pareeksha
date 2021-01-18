@@ -9,13 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "paper")
@@ -29,9 +27,8 @@ public class Paper {
 	private String paperName;
 	@Column(name = "paper_subject",length = 25)
 	private String paperSubject;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "paper_setter_id")
-	@JsonIgnore
 	private PaperSetter paperSetter;
 	@Column(columnDefinition = " boolean default false")
 	private boolean reviewed;

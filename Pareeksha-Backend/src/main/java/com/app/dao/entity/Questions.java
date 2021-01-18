@@ -30,7 +30,6 @@ public class Questions {
 	private int points;
 	@ManyToOne
 	@JoinColumn(name="paper_id")
-	@JsonIgnore
 	private Paper paper;
 	
 	public Questions() {

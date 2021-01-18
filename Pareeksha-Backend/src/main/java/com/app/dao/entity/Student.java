@@ -32,7 +32,6 @@ public class Student {
 	private String studentName;
 	@ManyToOne
 	@JoinColumn(name="paper_id")
-	@JsonIgnore
 	private Paper paper;
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime submittedOn;

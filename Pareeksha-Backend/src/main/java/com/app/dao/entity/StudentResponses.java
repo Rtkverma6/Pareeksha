@@ -27,11 +27,9 @@ public class StudentResponses {
 	private Questions question;
 	@ManyToOne
 	@JoinColumn(name = "student_id")
-	@JsonIgnore
 	private Student student;
 	@OneToOne
 	@JoinColumn(name="choice_id")
-	@JsonIgnore
 	private QuestionsChoices selectedChoice;
 	
 	public StudentResponses() {

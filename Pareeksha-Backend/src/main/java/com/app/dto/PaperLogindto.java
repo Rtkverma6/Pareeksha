@@ -2,13 +2,13 @@ package com.app.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class TestLogindto {
+public class PaperLogindto {
 
 	private Long paperId;
 	@NotBlank(message = "Paper password is mandatory")
 	private String paperPassword;
 	
-	public TestLogindto() {
+	public PaperLogindto() {
 		System.out.println("In Constructor of "+getClass().getName());
 	}
 
@@ -30,7 +30,7 @@ public class TestLogindto {
 
 	@Override
 	public String toString() {
-		return "TestLogindto [paperId=" + paperId + ", paperPassword=" + paperPassword + "]";
+		return "PaperLogindto [paperId=" + paperId + ", paperPassword=" + paperPassword + "]";
 	}
 	
 }
