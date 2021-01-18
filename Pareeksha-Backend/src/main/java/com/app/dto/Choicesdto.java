@@ -2,10 +2,13 @@ package com.app.dto;
 
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Choicesdto {
 
 	@NotBlank(message = "Please Provide test for given choice")
 	private String choice;
+	@JsonIgnore
 	private Long questionId;
 	private boolean isCorrect;
 	
@@ -40,6 +43,5 @@ public class Choicesdto {
 	@Override
 	public String toString() {
 		return "Choicesdto [choice=" + choice + ", questionId=" + questionId + ", isCorrect=" + isCorrect + "]";
-	}
-	
+	}	
 }

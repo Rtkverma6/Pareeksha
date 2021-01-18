@@ -1,6 +1,11 @@
 package com.app.dto;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.Min;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class QuestionRequestdto {
 
@@ -8,6 +13,8 @@ public class QuestionRequestdto {
 	@Min(value = 1,message = "Minimum value for points should be 1")
 	private int points;
 	private Long paperId;
+	@JsonProperty
+	private ArrayList<Choicesdto> choices = new ArrayList<>();
 	
 	public QuestionRequestdto() {
 		System.out.println("In Constructor of "+getClass().getName());
@@ -37,10 +44,19 @@ public class QuestionRequestdto {
 		this.paperId = paperId;
 	}
 
+	@JsonIgnore
+	public ArrayList<Choicesdto> getChoices() {
+		return choices;
+	}
+
+	@JsonProperty
+	public void setChoices(ArrayList<Choicesdto> choices) {
+		this.choices=choices;
+	}
+
 	@Override
 	public String toString() {
-		return "QuestionRequestdto [question=" + question + ", points=" + points + ", paperId=" + paperId + "]";
+		return "QuestionRequestdto [question=" + question + ", points=" + points + ", paperId=" + paperId + ", choices="
+				+ choices + "]";
 	}
-	
-	
 }

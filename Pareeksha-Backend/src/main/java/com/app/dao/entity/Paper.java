@@ -42,13 +42,15 @@ public class Paper {
 	private LocalTime duration;
 	@Column(name="difficulty_level",length = 12)
 	private String difficultyLevel;
+	private int totalMarks;
 	
 	public Paper() {
 		System.out.println("In Constructor of "+getClass().getName());
 	}
 
 	public Paper(Long paperId, String paperName, String paperSubject, boolean reviewed, String paperPassword,
-			LocalDateTime startDate, LocalDateTime endDate, LocalTime duration, String difficultyLevel) {
+			LocalDateTime startDate, LocalDateTime endDate, LocalTime duration, String difficultyLevel,
+			int totalMarks) {
 		super();
 		this.paperId = paperId;
 		this.paperName = paperName;
@@ -59,6 +61,7 @@ public class Paper {
 		this.endDate = endDate;
 		this.duration = duration;
 		this.difficultyLevel = difficultyLevel;
+		this.totalMarks = totalMarks;
 	}
 
 	public Long getPaperId() {
@@ -141,13 +144,21 @@ public class Paper {
 		this.difficultyLevel = difficultyLevel;
 	}
 
+	public int getTotalMarks() {
+		return totalMarks;
+	}
+
+	public void setTotalMarks(int totalMarks) {
+		this.totalMarks = totalMarks;
+	}
+
 	@Override
 	public String toString() {
 		return "Paper [paperId=" + paperId + ", paperName=" + paperName + ", paperSubject=" + paperSubject
-				+ ", reviewed=" + reviewed + ", paperPassword=" + paperPassword + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", duration=" + duration + ", difficultyLevel=" + difficultyLevel + "]";
+				+ ", paperSetter=" + paperSetter + ", reviewed=" + reviewed + ", paperPassword=" + paperPassword
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", duration=" + duration + ", difficultyLevel="
+				+ difficultyLevel + ", totalMarks=" + totalMarks + "]";
 	}
-
 
 	
 	

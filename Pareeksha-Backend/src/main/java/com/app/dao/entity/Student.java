@@ -27,7 +27,7 @@ public class Student {
 	private Long studentId;
 	@Column(length = 12)
 	private String prn; 
-	private int marks;
+	private int marksObtained;
 	@Column(name = "student_name",length = 30)
 	private String studentName;
 	@ManyToOne
@@ -40,11 +40,11 @@ public class Student {
 		System.out.println("In Constructor of "+getClass().getName());
 	}
 
-	public Student(Long studentId, String prn, int marks, String studentName, LocalDateTime submittedOn) {
+	public Student(Long studentId, String prn, int marksObtained, String studentName, LocalDateTime submittedOn) {
 		super();
 		this.studentId = studentId;
 		this.prn = prn;
-		this.marks = marks;
+		this.marksObtained = marksObtained;
 		this.studentName = studentName;
 		this.submittedOn = submittedOn;
 	}
@@ -65,12 +65,12 @@ public class Student {
 		this.prn = prn;
 	}
 
-	public int getMarks() {
-		return marks;
+	public int getMarksObtained() {
+		return marksObtained;
 	}
 
-	public void setMarks(int marks) {
-		this.marks = marks;
+	public void setMarksObtained(int marksObtained) {
+		this.marksObtained = marksObtained;
 	}
 
 	public String getStudentName() {
@@ -81,12 +81,10 @@ public class Student {
 		this.studentName = studentName;
 	}
 
-	@JsonIgnore
 	public Paper getPaper() {
 		return paper;
 	}
 
-	@JsonProperty
 	public void setPaper(Paper paper) {
 		this.paper = paper;
 	}
@@ -101,8 +99,9 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [studentId=" + studentId + ", prn=" + prn + ", marks=" + marks + ", studentName=" + studentName
-				+ ", submittedOn=" + submittedOn + "]";
+		return "Student [studentId=" + studentId + ", prn=" + prn + ", marksObtained=" + marksObtained
+				+ ", studentName=" + studentName + ", paper=" + paper + ", submittedOn=" + submittedOn + "]";
 	}
+
 	
 }
