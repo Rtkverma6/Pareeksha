@@ -7,6 +7,7 @@ public class QuestionResponsedto {
 	private Long questionId;
     private String question;
     private int points;
+	private String questionType;
     private ArrayList<ChoiceResponsedto> choices;
     
     public QuestionResponsedto() {
@@ -45,6 +46,15 @@ public class QuestionResponsedto {
 		this.choices = choices;
 	}
 	
+	
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+
 	//Helper method to add choice to QuestionResponseDto
 	public void addChoice(ChoiceResponsedto choice) {
 		choices.add(choice);
@@ -53,7 +63,7 @@ public class QuestionResponsedto {
 	@Override
 	public String toString() {
 		return "QuestionResponsedto [questionId=" + questionId + ", question=" + question + ", points=" + points
-				+ ", choices=" + choices + "]";
+				+ ", questionType=" + questionType + ", choices=" + choices + "]";
 	}
     
     

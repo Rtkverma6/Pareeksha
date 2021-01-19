@@ -1,7 +1,9 @@
 package com.app.mapper;
 
 import com.app.dao.entity.Paper;
+import com.app.dao.entity.PaperDiffucultyLevel;
 import com.app.dto.PaperRequestdto;
+import com.app.dto.PaperResponsedto;
 
 public class PaperMapper {
 
@@ -12,9 +14,19 @@ public class PaperMapper {
 		entity.setStartDate(dto.getStartDate());
 		entity.setEndDate(dto.getEndDate());
 		entity.setDuration(dto.getDuration());
-		entity.setDifficultyLevel(dto.getDifficultyLevel());
+		entity.setDifficultyLevel(PaperDiffucultyLevel.valueOf(dto.getDifficultyLevel()));
+		entity.setTotalMarks(dto.getTotalMarks());
+		entity.setTotalQuestions(dto.getTotalQuestions());
 		System.out.println("In Mapper method of Paper");
 		System.out.println(entity);
 		return entity;
+	}
+	
+	public static PaperResponsedto mapPaperEntityToPaperDto(Paper entity,PaperResponsedto dto) {
+		dto.setPaperName(entity.getPaperName());
+		dto.setPaperSubject(entity.getPaperSubject());
+		dto.setDifficultyLevel(entity.getDifficultyLevel().toString());
+		dto.setDuration(entity.getDuration());
+		return dto;
 	}
 }

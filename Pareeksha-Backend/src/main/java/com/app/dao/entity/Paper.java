@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,11 +23,11 @@ public class Paper {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="paper_id")
+	@Column(name = "paper_id")
 	private Long paperId;
-	@Column(name = "paper_name",length = 30)
+	@Column(name = "paper_name", length = 30)
 	private String paperName;
-	@Column(name = "paper_subject",length = 25)
+	@Column(name = "paper_subject", length = 25)
 	private String paperSubject;
 	@OneToOne
 	@JoinColumn(name = "paper_setter_id")
@@ -34,23 +36,27 @@ public class Paper {
 	private boolean reviewed;
 	@Column(length = 10)
 	private String paperPassword;
-	@DateTimeFormat(iso=ISO.DATE_TIME)
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime startDate;
-	@DateTimeFormat(iso=ISO.DATE_TIME)
+	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime endDate;
 	@DateTimeFormat(iso = ISO.TIME)
 	private LocalTime duration;
-	@Column(name="difficulty_level",length = 12)
-	private String difficultyLevel;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "difficulty_level", length = 10)
+	private PaperDiffucultyLevel difficultyLevel;
+	@Column(name = "total_marks")
 	private int totalMarks;
-	
+	@Column(name = "total_questions")
+	private int totalQuestions;
+
 	public Paper() {
-		System.out.println("In Constructor of "+getClass().getName());
+		System.out.println("In Constructor of " + getClass().getName());
 	}
 
 	public Paper(Long paperId, String paperName, String paperSubject, boolean reviewed, String paperPassword,
-			LocalDateTime startDate, LocalDateTime endDate, LocalTime duration, String difficultyLevel,
-			int totalMarks) {
+			LocalDateTime startDate, LocalDateTime endDate, LocalTime duration, PaperDiffucultyLevel difficultyLevel,
+			int totalMarks, int totalQuestions) {
 		super();
 		this.paperId = paperId;
 		this.paperName = paperName;
@@ -62,6 +68,7 @@ public class Paper {
 		this.duration = duration;
 		this.difficultyLevel = difficultyLevel;
 		this.totalMarks = totalMarks;
+		this.totalQuestions = totalQuestions;
 	}
 
 	public Long getPaperId() {
@@ -136,11 +143,11 @@ public class Paper {
 		this.duration = duration;
 	}
 
-	public String getDifficultyLevel() {
+	public PaperDiffucultyLevel getDifficultyLevel() {
 		return difficultyLevel;
 	}
 
-	public void setDifficultyLevel(String difficultyLevel) {
+	public void setDifficultyLevel(PaperDiffucultyLevel difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
 	}
 
@@ -152,14 +159,20 @@ public class Paper {
 		this.totalMarks = totalMarks;
 	}
 
+	public int getTotalQuestions() {
+		return totalQuestions;
+	}
+
+	public void setTotalQuestions(int totalQuestions) {
+		this.totalQuestions = totalQuestions;
+	}
+
 	@Override
 	public String toString() {
 		return "Paper [paperId=" + paperId + ", paperName=" + paperName + ", paperSubject=" + paperSubject
-				+ ", paperSetter=" + paperSetter + ", reviewed=" + reviewed + ", paperPassword=" + paperPassword
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", duration=" + duration + ", difficultyLevel="
-				+ difficultyLevel + ", totalMarks=" + totalMarks + "]";
+				+ ", reviewed=" + reviewed + ", paperPassword=" + paperPassword + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", duration=" + duration + ", difficultyLevel=" + difficultyLevel
+				+ ", totalMarks=" + totalMarks + ", totalQuestions=" + totalQuestions + "]";
 	}
 
-	
-	
 }

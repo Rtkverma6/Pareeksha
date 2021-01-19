@@ -26,8 +26,10 @@ public class PaperRequestdto {
 	private LocalDateTime endDate;
 	private LocalTime duration;
 	@NotBlank(message="Please provide difficulty level of paper")
-	@Size(max=12,message = "Max password length is 12 characters")
+	@Size(max=10,message = "Max password length is 10 characters")
 	private String difficultyLevel;
+	private int totalMarks;
+	private int totalQuestions;
 	
 	public PaperRequestdto() {
 		System.out.println("In Constructor of "+getClass().getName());
@@ -105,12 +107,28 @@ public class PaperRequestdto {
 		this.difficultyLevel = difficultyLevel;
 	}
 
+	public int getTotalMarks() {
+		return totalMarks;
+	}
+
+	public void setTotalMarks(int totalMarks) {
+		this.totalMarks = totalMarks;
+	}
+
+	public int getTotalQuestions() {
+		return totalQuestions;
+	}
+
+	public void setTotalQuestions(int totalQuestions) {
+		this.totalQuestions = totalQuestions;
+	}
+
 	@Override
 	public String toString() {
 		return "PaperRequestdto [paperName=" + paperName + ", paperSubject=" + paperSubject + ", paperSetterId="
 				+ paperSetterId + ", reviewed=" + reviewed + ", paperPassword=" + paperPassword + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", duration=" + duration + ", difficultyLevel=" + difficultyLevel
-				+ "]";
+				+ ", totalMarks=" + totalMarks + ", totalQuestions=" + totalQuestions + "]";
 	}
 
 }

@@ -18,6 +18,11 @@ public class ErrorResponse {
 		this.time = LocalDateTime.now();
 		this.description = description;
 	}
+	
+	public ErrorResponse(String message) {
+		super();
+		this.message = message;
+	}
 
 	public String getMessage() {
 		return message;

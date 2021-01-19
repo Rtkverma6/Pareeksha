@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,7 @@ public class PaperServiceImpl implements IPaperService {
 
 	@Autowired
 	PaperRepo repo;
-	
+
 	@Override
 	public Paper createPaper(Paper transientPaper) {
 		Paper createdPaper = repo.save(transientPaper);
@@ -34,4 +35,20 @@ public class PaperServiceImpl implements IPaperService {
 		return validatedPaper;
 	}
 
+	public String isPaperActive(Paper detachedPaper) {
+		// reviewed;endDate;startDate;
+		if (detachedPaper.isReviewed()) {
+			if (detachedPaper.getStartDate().isBefore(LocalDateTime.now())) {
+				if (detachedPaper.getEndDate().isAfter(LocalDateTime.now())) {
+					return "This paper is active";
+				} else {
+					return "Requested Paper has Expired";
+				}
+			} else {
+				return "Requested Paper is not activated yet";
+			}
+		} else {
+			return "Requested Paper is not reviewed yet";
+		}
+	}
 }

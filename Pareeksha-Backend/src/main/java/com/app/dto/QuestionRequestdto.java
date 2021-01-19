@@ -3,6 +3,8 @@ package com.app.dto;
 import java.util.ArrayList;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +15,18 @@ public class QuestionRequestdto {
 	@Min(value = 1,message = "Minimum value for points should be 1")
 	private int points;
 	private Long paperId;
+	@NotBlank(message = "Please provide question Type")
+	@Size(max=20,message ="Max Length of paper Type is 20 characters")
+	private String questionType;
+	
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+
 	@JsonProperty
 	private ArrayList<Choicesdto> choices = new ArrayList<>();
 	
@@ -56,7 +70,7 @@ public class QuestionRequestdto {
 
 	@Override
 	public String toString() {
-		return "QuestionRequestdto [question=" + question + ", points=" + points + ", paperId=" + paperId + ", choices="
-				+ choices + "]";
+		return "QuestionRequestdto [question=" + question + ", points=" + points + ", paperId=" + paperId
+				+ ", questionType=" + questionType + ", choices=" + choices + "]";
 	}
 }

@@ -2,6 +2,7 @@ package com.app.mapper;
 
 import java.util.ArrayList;
 
+import com.app.dao.entity.QuestionType;
 import com.app.dao.entity.Questions;
 import com.app.dto.ChoiceResponsedto;
 import com.app.dto.QuestionRequestdto;
@@ -12,6 +13,7 @@ public class QuestionMapper {
 	public static Questions mapQuestionDtoToQuestionEntity(QuestionRequestdto dto, Questions entity) {
 		entity.setQuestion(dto.getQuestion());
 		entity.setPoints(dto.getPoints());
+		entity.setQuestionType(QuestionType.valueOf(dto.getQuestionType()));
 		System.out.println("In Mapper method of Question");
 		System.out.println(entity);
 		return entity;
@@ -25,6 +27,7 @@ public class QuestionMapper {
 		dto.setQuestionId(entity.getQuestionId());
 		dto.setPoints(entity.getPoints());
 		dto.setChoices(choicedto);
+		dto.setQuestionType(entity.getQuestionType().toString());
 		System.out.println("Printing QuestionResponsedto");
 		System.out.println(dto);
 		return dto;

@@ -2,7 +2,9 @@ package com.app.restcontroller;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.app.dao.entity.Paper;
 import com.app.dao.entity.PaperSetter;
 import com.app.dao.entity.Questions;
 import com.app.dao.entity.QuestionsChoices;
 import com.app.dto.ChoiceResponsedto;
+import com.app.dto.ErrorResponse;
 import com.app.dto.PaperLogindto;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;
 import com.app.dto.QuestionResponsedto;
+import com.app.dto.Responsedto;
 import com.app.exception.IllegalArgumentException;
 import com.app.exception.NoSuchElementException;
 import com.app.mapper.ChoicesMapper;
@@ -97,14 +102,14 @@ public class PaperController {
 		Optional<Paper> fetchedPaper = paperService.findById(paperId);
 		if (fetchedPaper.isPresent()) {
 			paper = fetchedPaper.get();
-			paperResponse.setPaperName(paper.getPaperName());
-			paperResponse.setPaperSubject(paper.getPaperSubject());
-			System.out.println("------------------------------------------");
-			System.out.println(paper);
-			System.out.println("------------------------------------------");
+			//Checking if paper is valid 
+			String paperStatus = paperService.isPaperActive(paper);
+			if(paperStatus != "This paper is active" ) {
+				return new ResponseEntity<>(new ErrorResponse(paperStatus), HttpStatus.BAD_REQUEST);
+			}
+			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
 			questions = questionsService.fetchAllQuestions(paperId);
 			System.out.println(questions);
-			System.out.println("------------------------------------------");
 
 			for (Questions question : questions) {
 				fetchChoices = choiceService.fetchChoices(question.getQuestionId());
@@ -114,9 +119,6 @@ public class PaperController {
 				questionDto = QuestionMapper.mapQuestionEntityToQuestionResponseDto(question, questionDto, choices);
 				paperResponse.addQuestion(questionDto);
 			}
-			System.out.println("------------------------------------------");
-			System.out.println(paperResponse);
-			System.out.println("------------------------------------------");
 			return new ResponseEntity<>(paperResponse, HttpStatus.OK);
 		} else {
 			throw new NoSuchElementException("Sorry Paper You have selected is not found in records");
