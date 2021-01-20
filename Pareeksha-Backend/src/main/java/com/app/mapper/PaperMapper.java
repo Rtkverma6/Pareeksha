@@ -23,10 +23,13 @@ public class PaperMapper {
 	}
 	
 	public static PaperResponsedto mapPaperEntityToPaperDto(Paper entity,PaperResponsedto dto) {
+		dto.setPaperId(entity.getPaperId());
 		dto.setPaperName(entity.getPaperName());
 		dto.setPaperSubject(entity.getPaperSubject());
 		dto.setDifficultyLevel(entity.getDifficultyLevel().toString());
-		dto.setDuration(entity.getDuration());
+		int hour = entity.getDuration().getHour();
+		int minute = entity.getDuration().getMinute();
+		dto.setDuration((hour * 60 *60 )+(minute *60));
 		return dto;
 	}
 }

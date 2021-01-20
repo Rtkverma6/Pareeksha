@@ -26,7 +26,6 @@ import com.app.dto.PaperLogindto;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;
 import com.app.dto.QuestionResponsedto;
-import com.app.dto.Responsedto;
 import com.app.exception.IllegalArgumentException;
 import com.app.exception.NoSuchElementException;
 import com.app.mapper.ChoicesMapper;
@@ -98,18 +97,16 @@ public class PaperController {
 	public ResponseEntity<?> fetchPaper(@PathVariable Long paperId, Paper paper, ArrayList<Questions> questions,
 			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse) {
 		System.out.println("In fetchPaper()");
-		System.out.println(paperId);
 		Optional<Paper> fetchedPaper = paperService.findById(paperId);
 		if (fetchedPaper.isPresent()) {
 			paper = fetchedPaper.get();
 			//Checking if paper is valid 
-			String paperStatus = paperService.isPaperActive(paper);
-			if(paperStatus != "This paper is active" ) {
-				return new ResponseEntity<>(new ErrorResponse(paperStatus), HttpStatus.BAD_REQUEST);
-			}
+//			String paperStatus = paperService.isPaperActive(paper);
+//			if(paperStatus != "This paper is active" ) {
+//				return new ResponseEntity<>(new ErrorResponse(paperStatus), HttpStatus.BAD_REQUEST);
+//			}
 			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
 			questions = questionsService.fetchAllQuestions(paperId);
-			System.out.println(questions);
 
 			for (Questions question : questions) {
 				fetchChoices = choiceService.fetchChoices(question.getQuestionId());
@@ -119,10 +116,36 @@ public class PaperController {
 				questionDto = QuestionMapper.mapQuestionEntityToQuestionResponseDto(question, questionDto, choices);
 				paperResponse.addQuestion(questionDto);
 			}
+			System.out.println("___________________________________________");
+			System.out.println(paperResponse);
+			System.err.println("____________________________________________");
 			return new ResponseEntity<>(paperResponse, HttpStatus.OK);
 		} else {
 			throw new NoSuchElementException("Sorry Paper You have selected is not found in records");
 		}
-
+	}
+	
+	@GetMapping("/details/{paperSetterId}")
+	public ResponseEntity<?> fetchAllPaperDetails(@PathVariable Long paperSetterId,ArrayList<PaperResponsedto> papers){
+		System.out.println("In fetchAllPaperDetails()");
+		ArrayList<Paper> detachedPapers = paperService.findByPaperSetterId(paperSetterId);
+		detachedPapers.forEach( d -> papers.add(PaperMapper.mapPaperEntityToPaperDto(d, new PaperResponsedto())));
+		System.out.println(papers);
+		return new ResponseEntity<>(papers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/review/{paperId}")
+	public ResponseEntity<?> updatePaperStatus(@PathVariable Long paperId){
+		System.out.println("--------------------------------------------------");
+		System.out.println("In updatePaperStatus()");
+		Optional<Paper> fetchedPaper = paperService.findById(paperId);
+		if (fetchedPaper.isPresent()) {
+			Paper detachedPaper = fetchedPaper.get();
+			detachedPaper.setReviewed(true);
+			paperService.updatePaperStatus(detachedPaper);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}else {
+			throw new NoSuchElementException("No paper Present for given paperId");
+		}
 	}
 }

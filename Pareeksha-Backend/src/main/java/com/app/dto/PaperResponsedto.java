@@ -1,13 +1,13 @@
 package com.app.dto;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class PaperResponsedto {
 
+	private Long paperId;
 	private String paperName;
 	private String paperSubject;
-	private LocalTime duration;
+	private int duration;
 	private String difficultyLevel;
 	private ArrayList<QuestionResponsedto> questions = new ArrayList<>();
 	
@@ -39,11 +39,11 @@ public class PaperResponsedto {
 		this.questions = questions;
 	}
 	
-	public LocalTime getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(LocalTime duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
@@ -53,6 +53,15 @@ public class PaperResponsedto {
 
 	public void setDifficultyLevel(String difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
+	}
+	
+
+	public Long getPaperId() {
+		return paperId;
+	}
+
+	public void setPaperId(Long paperId) {
+		this.paperId = paperId;
 	}
 
 	//Helper Method to add Question in PaperResponseDto
@@ -64,9 +73,8 @@ public class PaperResponsedto {
 
 	@Override
 	public String toString() {
-		return "PaperResponsedto [paperName=" + paperName + ", paperSubject=" + paperSubject + ", duration=" + duration
-				+", difficultyLevel=" + difficultyLevel + ", questions="
-				+ questions + "]";
+		return "PaperResponsedto [paperId=" + paperId + ", paperName=" + paperName + ", paperSubject=" + paperSubject
+				+ ", duration=" + duration + ", difficultyLevel=" + difficultyLevel + ", questions=" + questions + "]";
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -50,5 +51,18 @@ public class PaperServiceImpl implements IPaperService {
 		} else {
 			return "Requested Paper is not reviewed yet";
 		}
+	}
+
+	@Override
+	public void updatePaperStatus(Paper detachedPaper) {
+		System.out.println("---------------------------------------------------------");
+		System.out.println("In save method");
+		System.out.println(detachedPaper);
+		 repo.save(detachedPaper);
+	}
+
+	@Override
+	public ArrayList<Paper> findByPaperSetterId(Long paperSetterId) {
+		return repo.findByPaperSettterId(paperSetterId);
 	}
 }
