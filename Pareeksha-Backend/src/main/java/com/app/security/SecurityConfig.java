@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// disable CSRF , no auth required for /login & for any other request ,
 		// its required.
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/papersetter/login", "/papersetter/signup",
-				"/student/login", "/paper/login", "/paper/fetch/{paperId}").permitAll().
+				"/student/login", "/paper/login", "/paper/fetch/{paperId}","/student/result").permitAll().
 		/*
 		 * allow OPTIONS call here for angular. These OPTIONS call are made by Angular
 		 * application to Spring Boot application.

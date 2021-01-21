@@ -8,6 +8,8 @@ public class PaperResponsedto {
 	private String paperName;
 	private String paperSubject;
 	private int duration;
+	private int totalMarks;
+	private int totalQuestions;
 	private String difficultyLevel;
 	private ArrayList<QuestionResponsedto> questions = new ArrayList<>();
 	
@@ -64,6 +66,22 @@ public class PaperResponsedto {
 		this.paperId = paperId;
 	}
 
+	public int getTotalMarks() {
+		return totalMarks;
+	}
+
+	public void setTotalMarks(int totalMarks) {
+		this.totalMarks = totalMarks;
+	}
+
+	public int getTotalQuestions() {
+		return totalQuestions;
+	}
+
+	public void setTotalQuestions(int totalQuestions) {
+		this.totalQuestions = totalQuestions;
+	}
+
 	//Helper Method to add Question in PaperResponseDto
 	public void addQuestion(QuestionResponsedto question) {
 		System.out.println("In addQuestion()");
@@ -74,7 +92,8 @@ public class PaperResponsedto {
 	@Override
 	public String toString() {
 		return "PaperResponsedto [paperId=" + paperId + ", paperName=" + paperName + ", paperSubject=" + paperSubject
-				+ ", duration=" + duration + ", difficultyLevel=" + difficultyLevel + ", questions=" + questions + "]";
+				+ ", duration=" + duration + ", totalMarks=" + totalMarks + ", totalQuestions=" + totalQuestions
+				+ ", difficultyLevel=" + difficultyLevel + ", questions=" + questions + "]";
 	}
 	
 }

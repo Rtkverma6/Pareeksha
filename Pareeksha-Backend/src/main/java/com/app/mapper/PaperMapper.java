@@ -27,6 +27,8 @@ public class PaperMapper {
 		dto.setPaperName(entity.getPaperName());
 		dto.setPaperSubject(entity.getPaperSubject());
 		dto.setDifficultyLevel(entity.getDifficultyLevel().toString());
+		dto.setTotalMarks(entity.getTotalMarks());
+		dto.setTotalQuestions(entity.getTotalQuestions());
 		int hour = entity.getDuration().getHour();
 		int minute = entity.getDuration().getMinute();
 		dto.setDuration((hour * 60 *60 )+(minute *60));

@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,11 @@ public class StudentServiceImpl implements IStudentService {
 	@Override
 	public Student createStudentRecord(Student transientStudent) {
 		return repo.save(transientStudent);
+	}
+
+	@Override
+	public Optional<Student> findByStudentId(Long id) {
+		return repo.findById(id);
 	}
 
 }

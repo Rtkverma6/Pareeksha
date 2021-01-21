@@ -21,7 +21,6 @@ import com.app.dao.entity.PaperSetter;
 import com.app.dao.entity.Questions;
 import com.app.dao.entity.QuestionsChoices;
 import com.app.dto.ChoiceResponsedto;
-import com.app.dto.ErrorResponse;
 import com.app.dto.PaperLogindto;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;

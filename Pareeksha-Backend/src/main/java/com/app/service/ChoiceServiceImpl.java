@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class ChoiceServiceImpl implements IChoicesService {
 	public QuestionsChoices insertChoice(QuestionsChoices transientChoice) {
 		transientChoice.setChoiceId(null); 
 		return  repo.save(transientChoice);
+	}
+
+	@Override
+	public Optional<QuestionsChoices> fetchChoice(Long choiceId) {
+		return repo.findById(choiceId);
 	}
 
 }

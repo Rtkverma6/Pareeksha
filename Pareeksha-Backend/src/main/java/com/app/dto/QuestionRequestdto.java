@@ -18,6 +18,8 @@ public class QuestionRequestdto {
 	@NotBlank(message = "Please provide question Type")
 	@Size(max=20,message ="Max Length of paper Type is 20 characters")
 	private String questionType;
+	@JsonProperty
+	private ArrayList<Choicesdto> choices = new ArrayList<>();
 	
 	public String getQuestionType() {
 		return questionType;
@@ -27,9 +29,6 @@ public class QuestionRequestdto {
 		this.questionType = questionType;
 	}
 
-	@JsonProperty
-	private ArrayList<Choicesdto> choices = new ArrayList<>();
-	
 	public QuestionRequestdto() {
 		System.out.println("In Constructor of "+getClass().getName());
 	}
