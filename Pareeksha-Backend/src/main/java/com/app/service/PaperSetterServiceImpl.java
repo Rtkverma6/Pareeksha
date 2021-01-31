@@ -1,6 +1,5 @@
 package com.app.service;
 
-
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -11,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.PaperSetterRepo;
 import com.app.dao.entity.PaperSetter;
+import com.app.dto.PaperSetterdto;
+import com.app.exception.DataIntegrityViolationException;
+import com.app.exception.IllegalArgumentException;
+import com.app.mapper.PaperSetterMapper;
 
 @Service
 @Transactional
@@ -20,14 +23,23 @@ public class PaperSetterServiceImpl implements IPaperSetterService {
 	PaperSetterRepo repo;
 	@Autowired
 	PasswordEncoder encoder;
-	
+
 	@Override
-	public PaperSetter savePaperSetter(PaperSetter transientObj) {
-		transientObj.setPassword(encoder.encode(transientObj.getPassword()));
-		PaperSetter persistentObj = repo.save(transientObj);
-		System.out.println("In savePaperSetter()");
-		System.out.println(persistentObj);
-		return persistentObj;
+	public PaperSetter savePaperSetter(PaperSetterdto dto, PaperSetter transientObj) {
+		transientObj = PaperSetterMapper.mapPaperSetterDtoToPapersetterEntity(dto, transientObj);
+		System.out.println(transientObj);
+		try {
+			transientObj.setPassword(encoder.encode(transientObj.getPassword()));
+			PaperSetter persistentObj = repo.save(transientObj);
+			if (persistentObj != null) {
+				return persistentObj;
+			} else {
+				throw new IllegalArgumentException("Failed to Signup...");
+			}
+		} catch (RuntimeException e) {
+			System.out.println("err in save " + e);
+			throw new DataIntegrityViolationException("Email already exists in database Please try another mailId");
+		}
 	}
 
 	@Override
@@ -40,6 +52,5 @@ public class PaperSetterServiceImpl implements IPaperSetterService {
 	public PaperSetter getByEmail(String email) {
 		return repo.findByEmail(email);
 	}
-
 
 }

@@ -21,7 +21,7 @@ public class PaperSetterServiceTester {
 	@Test
 	public void testSavePaperSetter() {
 		PaperSetter p = new PaperSetter(1L, "test", "test@gmail.com", LocalDate.parse("1999-01-01"), "123456789");
-		Mockito.when(service.savePaperSetter(p)).thenReturn(p);
+		//Mockito.when(service.savePaperSetter(p)).thenReturn(p);
 	}
 
 	@Test

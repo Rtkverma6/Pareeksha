@@ -57,7 +57,7 @@ public class PaperControllerTest {
 		Mockito.when(pservice.findById(2L)).thenReturn(t);
 		
 		String json = mapper.writeValueAsString(p);
-		Mockito.when((service.createPaper(Mockito.any(Paper.class)))).thenReturn(p);
+		//Mockito.when((service.createPaper(Mockito.any(Paper.class)))).thenReturn(p);
 		mockMvc.perform(post("/paper/create").content(json).contentType(MediaType.APPLICATION_JSON)).
 		andExpect(status().isCreated());
 		

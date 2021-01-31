@@ -11,6 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.PaperRepo;
 import com.app.dao.entity.Paper;
+import com.app.dao.entity.PaperSetter;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
+import com.app.dto.ChoiceResponsedto;
+import com.app.dto.PaperRequestdto;
+import com.app.dto.PaperResponsedto;
+import com.app.dto.QuestionResponsedto;
+import com.app.exception.IllegalArgumentException;
+import com.app.exception.NoSuchElementException;
+import com.app.mapper.ChoicesMapper;
+import com.app.mapper.PaperMapper;
+import com.app.mapper.QuestionMapper;
 
 @Service
 @Transactional
@@ -18,11 +30,71 @@ public class PaperServiceImpl implements IPaperService {
 
 	@Autowired
 	PaperRepo repo;
+	@Autowired
+	IPaperSetterService paperSetterService;
+	@Autowired
+	IQuestionsService questionsService;
+	@Autowired
+	IChoicesService choiceService;
 
 	@Override
-	public Paper createPaper(Paper transientPaper) {
-		Paper createdPaper = repo.save(transientPaper);
-		return createdPaper;
+	public Paper createPaper(PaperRequestdto paper,Paper transientPaper ) {
+		
+		PaperSetter paperSetter = null;
+		// Getting PapperSetter Object by paperSetter Id
+		Optional<PaperSetter> detachedPaperSetter = paperSetterService.findById(paper.getPaperSetterId());
+		if (detachedPaperSetter.isPresent()) {
+			paperSetter = detachedPaperSetter.get();
+			transientPaper = PaperMapper.mapPaperDtoToPaperEntity(paper, transientPaper);
+			transientPaper.setPaperSetter(paperSetter);
+			System.out.println(transientPaper);
+			System.out.println(transientPaper.getPaperSetter());
+
+			try {
+				Paper createPaper = repo.save(transientPaper);
+				if (createPaper != null) {
+					return createPaper;
+				} else {
+					throw new IllegalArgumentException("Failed to create Paper");
+				}
+			} catch (RuntimeException e) {
+				System.out.println("Error in creating paper" + e);
+				throw new RuntimeException("Error accords while saving paper");
+			}
+		} else {
+			throw new NoSuchElementException("No Such data found for given PaperSetter Id");
+		}
+	}
+	
+	public PaperResponsedto fetchPaper(Long paperId,Paper paper, ArrayList<Questions> questions,
+			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse) {
+		
+		Optional<Paper> fetchedPaper = repo.findById(paperId);
+		if (fetchedPaper.isPresent()) {
+			paper = fetchedPaper.get();
+		//	Checking if paper is valid 
+			String paperStatus = isPaperActive(paper);
+			if(paperStatus != "This paper is active" ) {
+				throw new RuntimeException("Paper is not activetd yet please try later");
+			}
+			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
+			questions = questionsService.fetchAllQuestions(paperId);
+
+			for (Questions question : questions) {
+				fetchChoices = choiceService.fetchChoices(question.getQuestionId());
+				ArrayList<ChoiceResponsedto> choices = new ArrayList<>();
+				QuestionResponsedto questionDto = new QuestionResponsedto();
+				choices = ChoicesMapper.mapChoiceEntityToChoiceResponseDto(fetchChoices, choices);
+				questionDto = QuestionMapper.mapQuestionEntityToQuestionResponseDto(question, questionDto, choices);
+				paperResponse.addQuestion(questionDto);
+			}
+			System.out.println("___________________________________________");
+			System.out.println(paperResponse);
+			System.err.println("____________________________________________");
+			return paperResponse;
+		} else {
+			throw new NoSuchElementException("Sorry Paper You have selected is not found in records");
+		}
 	}
 
 	@Override
@@ -54,15 +126,27 @@ public class PaperServiceImpl implements IPaperService {
 	}
 
 	@Override
-	public void updatePaperStatus(Paper detachedPaper) {
+	public String updatePaperStatus(Long paperId) {
 		System.out.println("---------------------------------------------------------");
 		System.out.println("In save method");
-		System.out.println(detachedPaper);
-		 repo.save(detachedPaper);
+		Optional<Paper> fetchedPaper = repo.findById(paperId);
+		if (fetchedPaper.isPresent()) {
+			Paper detachedPaper = fetchedPaper.get();
+			detachedPaper.setReviewed(true);
+			repo.save(detachedPaper);
+			return "Paper status Updated";
+		}else {
+			throw new NoSuchElementException("No paper Present for given paperId");
+		}
 	}
 
 	@Override
 	public ArrayList<Paper> findByPaperSetterId(Long paperSetterId) {
-		return repo.findByPaperSettterId(paperSetterId);
+		return repo.findByPaperSettterIdNotReviwed(paperSetterId);
+	}
+
+	@Override
+	public ArrayList<Paper> fetchPublishedPapers(Long paperSetterId) {
+		return repo.findByPaperSettterIdReviwed(paperSetterId);
 	}
 }

@@ -11,5 +11,5 @@ import com.app.dao.entity.Questions;
 public interface QuestionsRepo extends JpaRepository<Questions, Long> {
 
 	@Query("from Questions q where q.paper.paperId=:paperId")
-	public ArrayList<Questions> fetchAllQuestions(@Param("paperId")  long paperId);
+	public ArrayList<Questions> fetchAllQuestions(@Param("paperId") long paperId);
 }

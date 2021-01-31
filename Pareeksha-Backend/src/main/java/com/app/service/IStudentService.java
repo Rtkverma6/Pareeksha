@@ -1,12 +1,21 @@
 package com.app.service;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dao.entity.Student;
+import com.app.dto.PaperResultdto;
+import com.app.dto.StudentDetailsdto;
 
 public interface IStudentService {
 
-	public Student createStudentRecord(Student transientStudent);
+	public Student createStudentRecord(StudentDetailsdto dto, Student transientStudent);
+
+	public String saveStudentsPaperResponse(@RequestBody PaperResultdto resultDto, Questions question,
+			QuestionsChoices choice);
 	
-	public Optional<Student> findByStudentId(Long id) ;
+	public ArrayList<Student> fetchAllStudentsResults(Long paperId,ArrayList<Student> students);
 }

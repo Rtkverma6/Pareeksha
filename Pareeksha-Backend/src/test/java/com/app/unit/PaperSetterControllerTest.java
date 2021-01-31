@@ -43,7 +43,7 @@ public class PaperSetterControllerTest {
 		PaperSetter p = new PaperSetter(null, "Sumit", "sumit@gmail", LocalDate.parse("1999-10-10"), "10234569");
 		p.setPaperSetterId(2L);
 		String json = mapper.writeValueAsString(p);
-		Mockito.when(service.savePaperSetter(Mockito.any(PaperSetter.class))).thenReturn(p);
+		//Mockito.when(service.savePaperSetter(Mockito.any(PaperSetter.class))).thenReturn(p);
 		mockMvc.perform(post("/papersetter/create").content(json).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
 	}
