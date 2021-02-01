@@ -3,7 +3,7 @@ package com.app.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.app.dao.entity.QuestionsChoices;
+import com.app.dao.repo.entity.QuestionsChoices;
 
 public interface IChoicesService {
 

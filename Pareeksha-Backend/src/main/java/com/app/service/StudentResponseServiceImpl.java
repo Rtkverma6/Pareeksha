@@ -5,8 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.dao.StudentResponseRepo;
-import com.app.dao.entity.StudentResponses;
+import com.app.dao.repo.StudentResponseRepo;
+import com.app.dao.repo.entity.StudentResponses;
 
 @Service
 @Transactional

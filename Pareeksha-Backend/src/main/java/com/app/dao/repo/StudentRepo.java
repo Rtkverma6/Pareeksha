@@ -1,4 +1,4 @@
-package com.app.dao;
+package com.app.dao.repo;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.app.dao.entity.Student;
+import com.app.dao.repo.entity.Student;
 
 public interface StudentRepo  extends JpaRepository<Student, Long>{
 	

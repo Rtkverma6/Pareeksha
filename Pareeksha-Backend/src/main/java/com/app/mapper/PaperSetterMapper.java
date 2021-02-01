@@ -1,6 +1,6 @@
 package com.app.mapper;
 
-import com.app.dao.entity.PaperSetter;
+import com.app.dao.repo.entity.PaperSetter;
 import com.app.dto.PaperSetterdto;
 
 public class PaperSetterMapper {

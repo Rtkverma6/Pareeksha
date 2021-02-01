@@ -1,9 +1,9 @@
 package com.app.mapper;
 
-import com.app.dao.entity.Questions;
-import com.app.dao.entity.QuestionsChoices;
-import com.app.dao.entity.Student;
-import com.app.dao.entity.StudentResponses;
+import com.app.dao.repo.entity.Questions;
+import com.app.dao.repo.entity.QuestionsChoices;
+import com.app.dao.repo.entity.Student;
+import com.app.dao.repo.entity.StudentResponses;
 
 public class StudentResponseMapper {
 

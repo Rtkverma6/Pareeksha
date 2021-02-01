@@ -1,6 +1,6 @@
 package com.app.mapper;
 
-import com.app.dao.entity.Student;
+import com.app.dao.repo.entity.Student;
 import com.app.dto.StudentDetailsdto;
 
 public class StudentMapper {

@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.entity.Paper;
-import com.app.dao.entity.Questions;
-import com.app.dao.entity.QuestionsChoices;
-import com.app.dao.entity.Student;
+import com.app.dao.repo.entity.Paper;
+import com.app.dao.repo.entity.Questions;
+import com.app.dao.repo.entity.QuestionsChoices;
+import com.app.dao.repo.entity.Student;
 import com.app.dto.PaperLogindto;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;

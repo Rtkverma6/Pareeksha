@@ -1,4 +1,4 @@
-package com.app.dao.entity;
+package com.app.dao.repo.entity;
 
 public enum PaperDiffucultyLevel {
 

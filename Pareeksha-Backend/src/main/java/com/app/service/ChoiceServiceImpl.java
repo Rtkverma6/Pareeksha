@@ -8,8 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.dao.ChoicesRepo;
-import com.app.dao.entity.QuestionsChoices;
+import com.app.dao.repo.ChoicesRepo;
+import com.app.dao.repo.entity.QuestionsChoices;
 
 @Service
 @Transactional

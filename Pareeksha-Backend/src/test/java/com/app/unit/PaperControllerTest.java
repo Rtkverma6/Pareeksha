@@ -17,8 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.app.dao.entity.Paper;
-import com.app.dao.entity.PaperSetter;
+import com.app.dao.repo.entity.Paper;
+import com.app.dao.repo.entity.PaperSetter;
 import com.app.service.IPaperService;
 import com.app.service.IPaperSetterService;
 import com.fasterxml.jackson.databind.ObjectMapper;

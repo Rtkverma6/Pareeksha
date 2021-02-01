@@ -1,7 +1,7 @@
 package com.app.mapper;
 
-import com.app.dao.entity.Paper;
-import com.app.dao.entity.PaperDiffucultyLevel;
+import com.app.dao.repo.entity.Paper;
+import com.app.dao.repo.entity.PaperDiffucultyLevel;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;
 
