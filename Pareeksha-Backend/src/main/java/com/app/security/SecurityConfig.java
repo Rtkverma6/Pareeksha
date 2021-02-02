@@ -31,14 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// disable CSRF , no auth required for /login & for any other request ,
-		// its required.
+
 		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/papersetter/login", "/papersetter/signup",
 				"/student/login", "/paper/login", "/paper/fetch/{paperId}","/student/result").permitAll().
-		/*
-		 * allow OPTIONS call here for angular. These OPTIONS call are made by Angular
-		 * application to Spring Boot application.
-		 */
 				antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

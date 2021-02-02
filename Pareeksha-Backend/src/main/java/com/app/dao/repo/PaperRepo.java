@@ -15,7 +15,6 @@ public interface PaperRepo extends JpaRepository<Paper, Long> {
 	@Query("from Paper p where p.paperSetter.paperSetterId=:paperSetterId And p.reviewed=false")
 	public ArrayList<Paper> findByPaperSettterIdNotReviwed(@Param("paperSetterId") Long paperSetterId);
 	
-	//CURRENT_DATE - is evaluated to the current date (a java.sql.Date instance).
 	@Query("from Paper p where p.paperSetter.paperSetterId=:paperSetterId And p.reviewed=true And p.startDate < CURRENT_DATE")
 	public ArrayList<Paper> findByPaperSettterIdReviwed(@Param("paperSetterId") Long paperSetterId);
 }

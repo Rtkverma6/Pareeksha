@@ -50,7 +50,7 @@ public class PaperSetterServiceImpl implements IPaperSetterService {
 
 	@Override
 	public PaperSetter getByEmail(String email) {
-		return repo.findByEmail(email);
+		PaperSetter fetchedEmail = repo.findByEmail(email);
+		return fetchedEmail;
 	}
-
 }

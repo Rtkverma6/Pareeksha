@@ -41,7 +41,6 @@ public class PaperServiceImpl implements IPaperService {
 	public Paper createPaper(PaperRequestdto paper,Paper transientPaper ) {
 		
 		PaperSetter paperSetter = null;
-		// Getting PapperSetter Object by paperSetter Id
 		Optional<PaperSetter> detachedPaperSetter = paperSetterService.findById(paper.getPaperSetterId());
 		if (detachedPaperSetter.isPresent()) {
 			paperSetter = detachedPaperSetter.get();
@@ -66,17 +65,45 @@ public class PaperServiceImpl implements IPaperService {
 		}
 	}
 	
+	@Override
 	public PaperResponsedto fetchPaper(Long paperId,Paper paper, ArrayList<Questions> questions,
 			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse) {
 		
 		Optional<Paper> fetchedPaper = repo.findById(paperId);
 		if (fetchedPaper.isPresent()) {
 			paper = fetchedPaper.get();
-		//	Checking if paper is valid 
 			String paperStatus = isPaperActive(paper);
 			if(paperStatus != "This paper is active" ) {
 				throw new RuntimeException("Paper is not activetd yet please try later");
 			}
+			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
+			questions = questionsService.fetchAllQuestions(paperId);
+
+			for (Questions question : questions) {
+				fetchChoices = choiceService.fetchChoices(question.getQuestionId());
+				ArrayList<ChoiceResponsedto> choices = new ArrayList<>();
+				QuestionResponsedto questionDto = new QuestionResponsedto();
+				choices = ChoicesMapper.mapChoiceEntityToChoiceResponseDto(fetchChoices, choices);
+				questionDto = QuestionMapper.mapQuestionEntityToQuestionResponseDto(question, questionDto, choices);
+				paperResponse.addQuestion(questionDto);
+			}
+			System.out.println("___________________________________________");
+			System.out.println(paperResponse);
+			System.err.println("____________________________________________");
+			return paperResponse;
+		} else {
+			throw new NoSuchElementException("Sorry Paper You have selected is not found in records");
+		}
+	}
+	
+	@Override
+	public PaperResponsedto fetchUnReviewedPaper(Long paperId,Paper paper, ArrayList<Questions> questions,
+			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse) {
+		
+		Optional<Paper> fetchedPaper = repo.findById(paperId);
+		if (fetchedPaper.isPresent()) {
+			paper = fetchedPaper.get();
+			
 			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
 			questions = questionsService.fetchAllQuestions(paperId);
 
@@ -109,7 +136,6 @@ public class PaperServiceImpl implements IPaperService {
 	}
 
 	public String isPaperActive(Paper detachedPaper) {
-		// reviewed;endDate;startDate;
 		if (detachedPaper.isReviewed()) {
 			if (detachedPaper.getStartDate().isBefore(LocalDateTime.now())) {
 				if (detachedPaper.getEndDate().isAfter(LocalDateTime.now())) {

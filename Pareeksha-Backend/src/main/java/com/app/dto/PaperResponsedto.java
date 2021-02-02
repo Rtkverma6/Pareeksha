@@ -82,7 +82,6 @@ public class PaperResponsedto {
 		this.totalQuestions = totalQuestions;
 	}
 
-	//Helper Method to add Question in PaperResponseDto
 	public void addQuestion(QuestionResponsedto question) {
 		System.out.println("In addQuestion()");
 		System.out.println(question);

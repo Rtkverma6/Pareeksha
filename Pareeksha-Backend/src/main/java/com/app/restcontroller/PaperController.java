@@ -61,6 +61,13 @@ public class PaperController {
 		System.out.println("In fetchPaper()");
 		return new ResponseEntity<> (paperService.fetchPaper(paperId, paper, questions, fetchChoices, paperResponse),HttpStatus.OK);
 	}
+	
+	@GetMapping("/to-review/{paperId}")
+	public ResponseEntity<?> fetchToReviewPaper(@PathVariable Long paperId, Paper paper, ArrayList<Questions> questions,
+			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse) {
+		System.out.println("In fetchPaper()");
+		return new ResponseEntity<> (paperService.fetchUnReviewedPaper(paperId, paper, questions, fetchChoices, paperResponse),HttpStatus.OK);
+	}
 
 	@GetMapping("/details/{paperSetterId}")
 	public ResponseEntity<?> fetchAllPaperDetails(@PathVariable Long paperSetterId,

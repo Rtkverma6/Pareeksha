@@ -31,7 +31,6 @@ public class StudentServiceImpl implements IStudentService {
 	public Student createStudentRecord(StudentDetailsdto dto, Student transientStudent) {
 		Optional<Paper> detachedPaper = paperService.findById(dto.getPaperId());
 		if (detachedPaper.isPresent()) {
-			// Mapping Students dto to student entity
 			transientStudent = StudentMapper.mapStudentDtoToStudentEntity(dto, transientStudent);
 			Paper paper = detachedPaper.get();
 			transientStudent.setPaper(paper);

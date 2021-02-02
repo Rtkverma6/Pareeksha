@@ -152,16 +152,16 @@ public class BootifulApplication {&#xD;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>
   <entry>
-    <title>A Bootiful Podcast: AppDynamics' Pavol Loffay</title>
-    <link rel="alternate" href="https://spring.io/blog/2021/01/28/a-bootiful-podcast-appdynamics-pavol-loffay" />
+    <title>A Bootiful Podcast: Hypertrace Java Agent creator Pavol Loffay</title>
+    <link rel="alternate" href="https://spring.io/blog/2021/01/28/a-bootiful-podcast-hypertrace-java-agent-creator-pavol-loffay" />
     <category term="engineering" label="Engineering" />
     <author>
       <name>Josh Long</name>
     </author>
     <id>tag:spring.io,2021-01-29:4349</id>
     <updated>2021-01-29T01:13:00Z</updated>
-    <content type="html">&lt;p&gt;Hi, Spring fans! In this episode &lt;a href="http://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks to AppDynamics&amp;rsquo; &lt;a href="http://twitter.com/ploffay"&gt;Pavol Loffay (@ploffay)&lt;/a&gt; about telemetry, observability, and more. &lt;/p&gt;
-&lt;iframe title="AppDynamics' Pavol Loffay" height="122" width="100%" style="border: none;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/media/player/vm8cv-f8f4ea?from=pb6admin&amp;download=1&amp;version=1&amp;auto=0&amp;share=1&amp;download=1&amp;rtl=0&amp;fonts=Helvetica&amp;skin=1&amp;pfauth=&amp;btn-skin=107"&gt;&lt;/iframe&gt;
+    <content type="html">&lt;p&gt;Hi, Spring fans! In this episode &lt;a href="http://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks to Hypertrace Java Agent creator &lt;a href="http://twitter.com/ploffay"&gt;Pavol Loffay (@ploffay)&lt;/a&gt; about telemetry, observability, and more. &lt;/p&gt;
+&lt;iframe title="Hypertrace Java Agent creator Pavol Loffay" height="122" width="100%" style="border: none;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/media/player/vm8cv-f8f4ea?from=pb6admin&amp;download=1&amp;version=1&amp;auto=0&amp;share=1&amp;download=1&amp;rtl=0&amp;fonts=Helvetica&amp;skin=1&amp;pfauth=&amp;btn-skin=107"&gt;&lt;/iframe&gt;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>
   <entry>

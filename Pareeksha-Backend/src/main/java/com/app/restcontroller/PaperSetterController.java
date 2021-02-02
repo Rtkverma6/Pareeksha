@@ -57,7 +57,7 @@ public class PaperSetterController {
 		} catch (BadCredentialsException e) {
 			throw new RuntimeException("Invalid UserName or password");
 		}
-		// authentication successful : return JWT token to the client
+		
 		UserDetails details = UserDetailsService.loadUserByUsername(req.getUserName());
 		System.out.println("In Login return phase");
 		System.out.println(details);

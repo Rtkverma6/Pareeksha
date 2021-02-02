@@ -26,6 +26,9 @@ public interface IPaperService {
 	public PaperResponsedto fetchPaper(Long paperId, Paper paper, ArrayList<Questions> questions,
 			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse);
 	
+	public PaperResponsedto fetchUnReviewedPaper(Long paperId,Paper paper, ArrayList<Questions> questions,
+			ArrayList<QuestionsChoices> fetchChoices, PaperResponsedto paperResponse);
+	
 	public ArrayList<Paper> fetchPublishedPapers(Long paperSetterId);
 
 }

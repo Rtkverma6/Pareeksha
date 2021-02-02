@@ -1,10 +1,6 @@
 package com.app.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PaperResultdto {
 	private Long studentId;

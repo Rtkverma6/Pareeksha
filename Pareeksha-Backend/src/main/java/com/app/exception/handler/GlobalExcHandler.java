@@ -19,10 +19,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.app.dto.ErrorResponse;
 import com.app.exception.DataIntegrityViolationException;
 
-@ControllerAdvice //tells its Spring bean
+@ControllerAdvice 
 public class GlobalExcHandler extends ResponseEntityExceptionHandler {
 
-	//exce handling methods
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public ResponseEntity<?> handleEmptyResultDataAccessException(EmptyResultDataAccessException e,WebRequest request) {
 		System.out.println("In Handling data access exception");
@@ -65,12 +64,11 @@ public class GlobalExcHandler extends ResponseEntityExceptionHandler {
 		ArrayList<String> errMesg = new ArrayList<>();
 		
 		for(FieldError err : ex.getBindingResult().getFieldErrors())
-			errMesg.add(err.getDefaultMessage()); //popoulated list of error messages for failed validation rules
+			errMesg.add(err.getDefaultMessage());
 		ErrorResponse resp = new ErrorResponse("Validation Failure !!!",errMesg.toString());
 		return new ResponseEntity<>(resp,HttpStatus.BAD_REQUEST);
 	}
 	
-	// handle ANY other exception
 		@ExceptionHandler(Exception.class)
 		public ResponseEntity<?> handleAnyException(Exception exc, WebRequest request) {
 			System.out.println("in handle exc");

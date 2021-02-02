@@ -55,7 +55,6 @@ public class QuestionResponsedto {
 		this.questionType = questionType;
 	}
 
-	//Helper method to add choice to QuestionResponseDto
 	public void addChoice(ChoiceResponsedto choice) {
 		choices.add(choice);
 	}
