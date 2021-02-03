@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.repo.entity.PaperSetter;
+import com.app.dao.entity.PaperSetter;
 import com.app.dto.AuthenticationRequest;
 import com.app.dto.AuthenticationResponse;
 import com.app.dto.PaperSetterdto;

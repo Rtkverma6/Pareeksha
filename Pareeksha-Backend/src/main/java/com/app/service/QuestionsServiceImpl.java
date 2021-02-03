@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.entity.Paper;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dao.repo.QuestionsRepo;
-import com.app.dao.repo.entity.Paper;
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
 import com.app.dto.Choicesdto;
 import com.app.dto.QuestionRequestdto;
 import com.app.exception.NoSuchElementException;
@@ -44,7 +44,7 @@ public class QuestionsServiceImpl implements IQuestionsService {
 				for (Choicesdto choice : choices) {
 					transientChoice = ChoicesMapper.mapChoiceDtoToQuestionsChoicesEntity(choice, transientChoice);
 					transientChoice.setQuestion(createdQuestion);
-					System.out.println("Tramsient Choice after question added");
+					System.out.println("Transient Choice after question added");
 					System.out.println(choice);
 					choiceService.insertChoice(transientChoice);
 				}

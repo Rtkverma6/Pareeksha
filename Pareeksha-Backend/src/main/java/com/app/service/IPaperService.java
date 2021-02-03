@@ -3,9 +3,9 @@ package com.app.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.app.dao.repo.entity.Paper;
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
+import com.app.dao.entity.Paper;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;
 

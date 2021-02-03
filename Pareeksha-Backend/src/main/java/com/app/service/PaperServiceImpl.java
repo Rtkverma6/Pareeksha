@@ -9,11 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.entity.Paper;
+import com.app.dao.entity.PaperSetter;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dao.repo.PaperRepo;
-import com.app.dao.repo.entity.Paper;
-import com.app.dao.repo.entity.PaperSetter;
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
 import com.app.dto.ChoiceResponsedto;
 import com.app.dto.PaperRequestdto;
 import com.app.dto.PaperResponsedto;
@@ -168,11 +168,19 @@ public class PaperServiceImpl implements IPaperService {
 
 	@Override
 	public ArrayList<Paper> findByPaperSetterId(Long paperSetterId) {
-		return repo.findByPaperSettterIdNotReviwed(paperSetterId);
+		return repo.findByPaperSettterId(paperSetterId);
 	}
 
 	@Override
 	public ArrayList<Paper> fetchPublishedPapers(Long paperSetterId) {
-		return repo.findByPaperSettterIdReviwed(paperSetterId);
+		 ArrayList<Paper> fetchedPapers = repo.findByPaperSettterId
+				 (paperSetterId);
+		 ArrayList<Paper> activePapers = new ArrayList<>();
+		for (Paper paper : fetchedPapers) {
+			if (isPaperActive(paper) == "This paper is active") {
+				activePapers.add(paper);
+			}
+		}
+		 return activePapers;
 	}
 }

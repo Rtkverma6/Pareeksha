@@ -2,7 +2,7 @@ package com.app.mapper;
 
 import java.util.ArrayList;
 
-import com.app.dao.repo.entity.QuestionsChoices;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dto.ChoiceResponsedto;
 import com.app.dto.Choicesdto;
 

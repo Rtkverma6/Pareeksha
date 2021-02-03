@@ -1,4 +1,4 @@
-package com.app.dao.repo.entity;
+package com.app.dao.entity;
 
 public enum QuestionType {
 

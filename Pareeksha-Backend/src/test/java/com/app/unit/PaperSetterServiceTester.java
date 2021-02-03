@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.app.dao.repo.entity.PaperSetter;
+import com.app.dao.entity.PaperSetter;
 import com.app.service.IPaperSetterService;
 
 @SpringBootTest

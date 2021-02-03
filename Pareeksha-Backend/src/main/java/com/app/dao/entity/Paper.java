@@ -1,4 +1,4 @@
-package com.app.dao.repo.entity;
+package com.app.dao.entity;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

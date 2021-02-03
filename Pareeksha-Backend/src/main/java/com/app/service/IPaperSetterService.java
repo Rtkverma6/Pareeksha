@@ -2,7 +2,7 @@ package com.app.service;
 
 import java.util.Optional;
 
-import com.app.dao.repo.entity.PaperSetter;
+import com.app.dao.entity.PaperSetter;
 import com.app.dto.PaperSetterdto;
 
 public interface IPaperSetterService {

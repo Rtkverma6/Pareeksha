@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
-import com.app.dao.repo.entity.Student;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
+import com.app.dao.entity.Student;
 import com.app.dto.PaperResultdto;
 import com.app.dto.StudentDetailsdto;
 

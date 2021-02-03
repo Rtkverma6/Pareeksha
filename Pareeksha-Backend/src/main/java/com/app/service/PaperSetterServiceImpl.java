@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.entity.PaperSetter;
 import com.app.dao.repo.PaperSetterRepo;
-import com.app.dao.repo.entity.PaperSetter;
 import com.app.dto.PaperSetterdto;
 import com.app.exception.DataIntegrityViolationException;
 import com.app.exception.IllegalArgumentException;

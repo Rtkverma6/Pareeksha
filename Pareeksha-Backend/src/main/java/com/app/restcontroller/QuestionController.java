@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
 import com.app.dto.QuestionRequestdto;
 import com.app.service.IChoicesService;
 import com.app.service.IPaperService;

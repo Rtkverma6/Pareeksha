@@ -9,11 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.dao.entity.Paper;
+import com.app.dao.entity.Questions;
+import com.app.dao.entity.QuestionsChoices;
+import com.app.dao.entity.Student;
 import com.app.dao.repo.StudentRepo;
-import com.app.dao.repo.entity.Paper;
-import com.app.dao.repo.entity.Questions;
-import com.app.dao.repo.entity.QuestionsChoices;
-import com.app.dao.repo.entity.Student;
 import com.app.dto.PaperResultdto;
 import com.app.dto.StudentDetailsdto;
 import com.app.mapper.StudentMapper;

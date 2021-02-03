@@ -2,8 +2,8 @@ package com.app.mapper;
 
 import java.util.ArrayList;
 
-import com.app.dao.repo.entity.QuestionType;
-import com.app.dao.repo.entity.Questions;
+import com.app.dao.entity.QuestionType;
+import com.app.dao.entity.Questions;
 import com.app.dto.ChoiceResponsedto;
 import com.app.dto.QuestionRequestdto;
 import com.app.dto.QuestionResponsedto;
