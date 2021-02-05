@@ -12,4 +12,6 @@ public interface IPaperSetterService {
 	public Optional<PaperSetter> findById(Long id);
 
 	public PaperSetter getByEmail(String email);
+	
+	public String changePassword(PaperSetterdto details);
 }

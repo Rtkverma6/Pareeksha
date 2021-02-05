@@ -75,5 +75,11 @@ public class PaperSetterController {
 		System.out.println("In Returning PapperSetterId  = " + paperSetter.getPaperSetterId());
 		return new ResponseEntity<>(paperSetter.getPaperSetterId(), HttpStatus.OK);
 	}
+	
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestBody PaperSetterdto details){
+		System.out.println("In forgotPassword()");
+		return new ResponseEntity<>(service.changePassword(details), HttpStatus.OK);
+	}
 
 }

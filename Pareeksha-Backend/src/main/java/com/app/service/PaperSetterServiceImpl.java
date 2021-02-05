@@ -13,6 +13,7 @@ import com.app.dao.repo.PaperSetterRepo;
 import com.app.dto.PaperSetterdto;
 import com.app.exception.DataIntegrityViolationException;
 import com.app.exception.IllegalArgumentException;
+import com.app.exception.NoSuchElementException;
 import com.app.mapper.PaperSetterMapper;
 
 @Service
@@ -52,5 +53,17 @@ public class PaperSetterServiceImpl implements IPaperSetterService {
 	public PaperSetter getByEmail(String email) {
 		PaperSetter fetchedEmail = repo.findByEmail(email);
 		return fetchedEmail;
+	}
+
+	@Override
+	public String changePassword(PaperSetterdto details) {
+		PaperSetter fetchedPaperSetter = repo.findByEmailAndDob(details.getEmail(), details.getDob());
+		if (fetchedPaperSetter != null) {
+			fetchedPaperSetter.setPassword(encoder.encode(details.getPassword()));
+			repo.save(fetchedPaperSetter);
+		}else {
+			throw new NoSuchElementException("Please check your credentials.....");
+		}
+		return "Password updated successfully";
 	}
 }
