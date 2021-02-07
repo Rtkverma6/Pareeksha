@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -53,9 +54,9 @@ public class StudentServiceImpl implements IStudentService {
 		Optional<Student> fetchedStudent = repo.findById(resultDto.getStudentId());
 		if (fetchedStudent.isPresent()) {
 			Student student = fetchedStudent.get();
-			student.setSubmittedOn(resultDto.getSubmittedOn());
+			student.setSubmittedOn(LocalDateTime.now());
 			student.setMarksObtained(resultDto.getMarksObtained());
-			student.setSubmittedOn(resultDto.getSubmittedOn());
+//			student.setSubmittedOn(resultDto.getSubmittedOn());
 			repo.save(student);
 		} else {
 			throw new NoSuchElementException("Error in saving result of student");

@@ -72,10 +72,6 @@ public class PaperServiceImpl implements IPaperService {
 		Optional<Paper> fetchedPaper = repo.findById(paperId);
 		if (fetchedPaper.isPresent()) {
 			paper = fetchedPaper.get();
-			String paperStatus = isPaperActive(paper);
-			if(paperStatus != "This paper is active" ) {
-				throw new RuntimeException("Paper is not activetd yet please try later");
-			}
 			paperResponse = PaperMapper.mapPaperEntityToPaperDto(paper, paperResponse);
 			questions = questionsService.fetchAllQuestions(paperId);
 
@@ -132,6 +128,13 @@ public class PaperServiceImpl implements IPaperService {
 	@Override
 	public Paper findByPaperIdAndPaperPassword(Long id, String password) {
 		Paper validatedPaper = repo.findByPaperIdAndPaperPassword(id, password);
+		if (validatedPaper ==  null) {
+			throw new NoSuchElementException("Paper creadentials provided are not valid please try again...");
+		}
+		String paperStatus = isPaperActive(validatedPaper);
+		if(paperStatus != "This paper is active" ) {
+			throw new RuntimeException("Paper is not activetd yet please try later");
+		}
 		return validatedPaper;
 	}
 

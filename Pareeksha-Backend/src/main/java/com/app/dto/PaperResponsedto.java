@@ -10,6 +10,7 @@ public class PaperResponsedto {
 	private int duration;
 	private int totalMarks;
 	private int totalQuestions;
+	private boolean reviewed;
 	private String difficultyLevel;
 	private ArrayList<QuestionResponsedto> questions = new ArrayList<>();
 	
@@ -82,6 +83,14 @@ public class PaperResponsedto {
 		this.totalQuestions = totalQuestions;
 	}
 
+	public boolean isReviewed() {
+		return reviewed;
+	}
+
+	public void setReviewed(boolean reviewed) {
+		this.reviewed = reviewed;
+	}
+
 	public void addQuestion(QuestionResponsedto question) {
 		System.out.println("In addQuestion()");
 		System.out.println(question);
@@ -92,7 +101,7 @@ public class PaperResponsedto {
 	public String toString() {
 		return "PaperResponsedto [paperId=" + paperId + ", paperName=" + paperName + ", paperSubject=" + paperSubject
 				+ ", duration=" + duration + ", totalMarks=" + totalMarks + ", totalQuestions=" + totalQuestions
-				+ ", difficultyLevel=" + difficultyLevel + ", questions=" + questions + "]";
+				+ ", reviewed=" + reviewed + ", difficultyLevel=" + difficultyLevel + ", questions=" + questions + "]";
 	}
 	
 }

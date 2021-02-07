@@ -8,7 +8,7 @@ public class QuestionResponsedto {
     private String question;
     private int points;
 	private String questionType;
-    private ArrayList<ChoiceResponsedto> choices;
+    private ArrayList<ChoiceResponsedto> choices = new ArrayList<>();
     
     public QuestionResponsedto() {
 		System.out.println("In Constructor of "+getClass().getName());
